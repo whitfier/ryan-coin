@@ -1,0 +1,55 @@
+/*
+  Application colors
+
+  text:               #fff;
+  text-secondary:     #9cb3c9;
+
+  error-red:          #d64d54;
+
+  green:              #3cd483;
+
+  indigo-light:       #1f364d;
+  indigo-normal:      #0f273d;
+  indigo-dark:        #0c2033;
+
+  blue-normal:        #4997e5;
+  blue-dark:          #457cb2;
+*/
+
+/* Load Open Sans font from Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+
+body {
+  background-color: #0c2033;
+  font-family: "Open Sans", sans-serif;
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.percent-raised {
+  color: #3cd483;
+}
+
+.percent-fallen {
+  color: #d64d54;
+}
+
+.loading-container {
+  width: 100%;
+  text-align: center;
+  margin: 40px auto;
+}
+
+.error {
+  width: 100%;
+  margin: 40px 0;
+  text-align: center;
+  color: #d64d54;
+}
+
+/* Remove close icon from input on IE */
+input::-ms-clear {
+  display: none;
+}
