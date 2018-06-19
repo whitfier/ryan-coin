@@ -23,7 +23,7 @@ class List extends React.Component {
     this.handlePerPageUpdate = this.handlePerPageUpdate.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchCurrencies();
   }
 

@@ -15,7 +15,7 @@ class Detail extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Get id from url params
     const currencyId = this.props.match.params.id;
 
@@ -23,10 +23,10 @@ class Detail extends React.Component {
     this.fetchCurrency(currencyId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.location.pathname !== nextProps.location.pathname) {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       // Get id from new url params
-      const currencyId = nextProps.match.params.id;
+      const currencyId = this.props.match.params.id;
 
       // Fetch currency
       this.fetchCurrency(currencyId);

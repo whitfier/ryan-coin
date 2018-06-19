@@ -13,17 +13,19 @@ class Search extends React.Component {
     this.state = {
       searchResults: [],
       searchQuery: "",
-      loading: false
+      loading: false,
+      cursor: 0
     };
 
-    this.handleRedirect = this.handleRedirect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   handleChange(e) {
     const searchQuery = e.target.value;
 
-    this.setState({ searchQuery });
+    this.setState({ searchQuery, cursor: 0 });
 
     // If searchQuery isn't present, don't send request to server
     if (!searchQuery) {
@@ -55,8 +57,22 @@ class Search extends React.Component {
     this.props.history.push(`/currency/${currencyId}`);
   }
 
+  handleKeyDown(e) {
+    const { cursor, searchResults } = this.state;
+
+    if (e.key === "ArrowUp" && cursor > 0) {
+      this.setState(prevState => ({ cursor: prevState.cursor - 1 }));
+    } else if (e.key === "ArrowDown" && cursor < searchResults.length - 1) {
+      this.setState(prevState => ({ cursor: prevState.cursor + 1 }));
+    } else if (e.key === "Enter") {
+      this.handleRedirect(searchResults[cursor].id);
+    } else if (e.key === "Escape") {
+      this.setState({ searchQuery: "", searchResults: [] });
+    }
+  }
+
   renderSearchResults() {
-    const { searchResults, searchQuery, loading } = this.state;
+    const { searchResults, searchQuery, loading, cursor } = this.state;
 
     if (!searchQuery) {
       return "";
@@ -65,10 +81,12 @@ class Search extends React.Component {
     if (searchResults.length > 0) {
       return (
         <div className="Search-result-container">
-          {searchResults.map(result => (
+          {searchResults.map((result, i) => (
             <div
               key={result.id}
-              className="Search-result"
+              className={
+                cursor === i ? "Search-result-active" : "Search-result"
+              }
               onClick={() => this.handleRedirect(result.id)}
             >
               {result.name} ({result.symbol})
@@ -98,6 +116,7 @@ class Search extends React.Component {
           <span className="Search-icon" />
           <input
             onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
             type="text"
             className="Search-input"
             placeholder="Currency name"

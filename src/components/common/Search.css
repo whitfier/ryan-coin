@@ -73,6 +73,14 @@
   cursor: pointer;
 }
 
+.Search-result-active {
+  color: #9cb3c9;
+  background-color: #1f364d;
+  padding: 15px 0 15px 35px;
+  border-bottom: 2px solid #0c2033;
+  cursor: pointer;
+}
+
 .Search-result:hover {
   color: #fff;
 }
