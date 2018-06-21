@@ -11,7 +11,9 @@ const Header = () => {
         <img src={logo} alt="logo" className="Header-logo" />
       </Link>
 
-      <Search />
+      <div className="Header-search">
+        <Search />
+      </div>
     </div>
   );
 };

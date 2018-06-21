@@ -14,7 +14,7 @@ class Search extends React.Component {
   }
 
   goToCurrency(value) {
-    this.props.history.push(`/currency/${value.value}`);
+    this.props.history.push(`/currency/${value}`);
   }
 
   fetchCurrencyNames(input) {
@@ -24,12 +24,6 @@ class Search extends React.Component {
 
     return fetch(`${API_URL}/autocomplete?searchQuery=${input}`)
       .then(handleResponse)
-      .then(result =>
-        result.map(currency => ({
-          value: currency.id,
-          label: currency.name
-        }))
-      )
       .then(result => {
         return { options: result };
       });
@@ -39,7 +33,10 @@ class Search extends React.Component {
     return (
       <Async
         autosize={false}
-        autoFocus={true}
+        simpleValue
+        placeholder="Search..."
+        valueKey="id"
+        labelKey="name"
         onChange={this.goToCurrency}
         loadOptions={this.fetchCurrencyNames}
       />
